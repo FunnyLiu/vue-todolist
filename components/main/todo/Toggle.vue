@@ -1,5 +1,5 @@
 <template>
-  <input class="toggle" type="checkbox" checked="{completed}" @change="{onChange}" />
+  <input class="toggle" type="checkbox" :checked="completed" @change="onChange" />
 </template>
 
 <script>

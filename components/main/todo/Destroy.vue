@@ -1,5 +1,5 @@
 <template>
-  <button class="destroy" @click={onClick} />
+  <button class="destroy" @click="onClick" />
 </template>
 
 <script>
@@ -7,7 +7,10 @@ export default {
   name: "Destroy",
   components: {},
   props: {
-    id
+    id:{
+      type:Number,
+      default:-1
+    }
   },
   data() {
     return {};

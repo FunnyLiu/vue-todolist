@@ -1,8 +1,8 @@
 <template>
 		<div class="view">
-			<Toggle :id="id" :completed="completed" />
-			<label @doubleClick="onDoubleClick">{{text}}</label>
-			<Destroy :id="id" />
+			<Toggle :id="id" :completed="completed" @toggle="onToggle" />
+			<label v-on:dblclick="onDoubleClick">{{text}}</label>
+			<Destroy :id="id" @destroy="onDestroy" />
 		</div>
 </template>
 
@@ -10,7 +10,7 @@
 import Toggle from './Toggle';
 import Destroy from './Destroy';
 export default {
-  name: "View",
+  name: "Viewer",
   components: {
     Toggle,
     Destroy
@@ -36,6 +36,12 @@ export default {
   methods: {
     onDoubleClick() {
       this.$emit('setEditing',this.id)
+    },
+    onToggle(id) {
+      this.$emit('toggle',id);
+    },
+    onDestroy(id) {
+      this.$emit('destroy',id);
     }
   }
 };

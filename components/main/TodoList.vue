@@ -6,14 +6,17 @@
       :id="item.id"
       :text="item.text"
       :isEditing="item.isEditing"
-      :setEditing="item.setEditing"
+      @setEditing="setEditing"
       :completed="item.completed"
+      @toggle="onToggle"
+      @destroy="onDestroy"
+      @edit="onEdit"
     />
   </ul>
 </template>
 
 <script>
-import Todo from './todo/Todo';
+import Todo from "./todo/Todo";
 export default {
   name: "TodoList",
   components: {
@@ -22,7 +25,9 @@ export default {
   props: {
     todos: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     },
     filter: {
       type: String,
@@ -36,8 +41,7 @@ export default {
   },
   computed: {
     visibleTodos() {
-      debugger;
-      let visibleTodos = [];
+      let visibleTodos = this.todos;
       if (this.filter === "active") {
         visibleTodos = this.todos.filter(
           ({ completed }) => completed === false
@@ -47,13 +51,32 @@ export default {
       if (this.filter === "completed") {
         visibleTodos = this.todos.filter(({ completed }) => completed);
       }
-      visibleTodos = visibleTodos.map(todo => {
+      visibleTodos.forEach(todo => {
+        if(todo.id === this.isEditing){
+          todo.isEditing = true;
+        }else{
+          todo.isEditing = false;
+        }
         todo.isEditing = todo.id === this.editing;
       });
       return visibleTodos;
     }
   },
-  methods: {}
+  methods: {
+    onToggle(id){
+      this.editing = null;
+      this.$emit('toggle',id);
+    },
+    onDestroy(id){
+      this.$emit('destroy',id);
+    },
+    setEditing(id){
+      this.editing = id;
+    },
+    onEdit(id,text){
+      this.$emit('edit',id,text);
+    }
+  }
 };
 </script>
 <style >

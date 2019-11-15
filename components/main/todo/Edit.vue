@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      editText:''
+      editText:this.text
     };
   },
   computed: {},
@@ -28,9 +28,9 @@ export default {
     },
     onSubmit({ target: { value: text } }) {
       if (text.trim() !== "") {
-        this.$emit("edit", id, text);
+        this.$emit("edit", this.id, text);
       } else {
-        this.$emit("destroy", id);
+        this.$emit("destroy", this.id);
       }
     },
     onKeyDown(event) {
@@ -42,10 +42,6 @@ export default {
 
       if (keyCode === 27) {
         this.editText = text;
-      }
-
-      if ([13, 27].includes(keyCode)) {
-        this.editText = '';
       }
     }
   }

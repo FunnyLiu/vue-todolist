@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     onChange({ target: { checked } }) {
-      this.$emit({ type: "toggle-all", checked });
+      this.$emit('toggleAll',checked );
     }
   }
 };

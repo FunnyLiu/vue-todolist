@@ -1,7 +1,7 @@
 <template>
   <section class="main" :class="noTodosClass">
-    <ToggleAll />
-    <TodoList :todos="todos" /> 
+    <ToggleAll :todos="todos" @toggleAll="onToggleAll" />
+    <TodoList :todos="todos" :filter="filter" @toggle="onToggle" @destroy="onDestroy" @edit="onEdit"/> 
   </section>
 </template>
 
@@ -21,6 +21,10 @@ export default {
       default: () => {
         return [];
       }
+    },
+    filter: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -28,11 +32,23 @@ export default {
   },
   computed: {
     noTodosClass() {
-      debugger;
       return this.todos.length === 0 ? "hidden" : "";
     }
   },
-  methods: {}
+  methods: {
+    onToggle(id){
+      this.$emit('toggle',id);
+    },
+    onDestroy(id){
+      this.$emit('destroy',id);
+    },
+    onEdit(id,text){
+      this.$emit('edit',id,text);
+    },
+    onToggleAll(checked){
+      this.$emit('toggleAll',checked);
+    }
+  }
 };
 </script>
 <style >

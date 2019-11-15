@@ -25,8 +25,7 @@ export default {
   },
   methods: {
     selectedClass(match) {
-      const filter = this.filter === match ? "selected" : "";
-      this.$emit("filter", { filter });
+      return this.filter === match ? "selected" : "";
     }
   }
 };
