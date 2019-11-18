@@ -74,6 +74,7 @@ export default {
       this.editing = id;
     },
     onEdit(id,text){
+      this.editing = null;
       this.$emit('edit',id,text);
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <input class="edit" ref="inputEl" :value="editText" @change="onChange" @blur="onSubmit" @keydown="onKeyDown" />
+  <input class="edit" ref="inputEl" :value="editText" @change="onChange" @keydown="onKeyDown" />
 </template>
 
 <script>
